@@ -2,26 +2,46 @@
 """
 Created on Tue Mar 28 18:53:54 2023
 
-@author: Att1ce
+@author: 20051009 李明睿
 """
 
 import numpy as np
+import pandas as pd
 
-num = int(input('请输入铺层数:'))
+h = pd.read_csv("data1.csv",usecols=["	铺层厚度/mm"],encoding='gbk')
+h = int(np.array(h)[0][0])
+
+num = pd.read_csv("data1.csv",usecols=["铺层层数"],encoding='gbk')
+num = int(np.array(num)[0][0])
+
+
+E1 = pd.read_csv("data1.csv",usecols=["	E_1/Mpa"],encoding='gbk')
+E1 = float(np.array(E1)[0][0])
+
+E2 = pd.read_csv("data1.csv",usecols=["	E_2/Mpa"],encoding='gbk')
+E2 = float(np.array(E2)[0][0])
+
+nu12 = pd.read_csv("data1.csv",usecols=["	v_12"],encoding='gbk')
+nu12 = float(np.array(nu12)[0][0])
+
+G12 = pd.read_csv("data1.csv",usecols=["	G_12"],encoding='gbk')
+G12 = float(np.array(G12)[0][0])
+
+#print(num)
 t = [0]*num#铺层角度
+angle = pd.read_csv("data1.csv",usecols=["	铺层角度（角度制）"],encoding='gbk')
+
 for i in range(len(t)):
-    t[i] = float(input('请依次输入铺层角度:'))
-h = float(input('请输入铺层厚度：'))#铺层厚度
+    t[i] = float(np.array(angle)[i][0])
+
+
 
 
 print('铺层角度：',t,'每个铺层的厚度：',h)
 
-print('单位为Mpa,N/mm2')
+print('单位为Mpa,N/(mm^2)')
 
-E1 = float(input('E1:'))
-E2 = float(input('E2:'))
-nu12 = float(input('nu12:'))
-G12 = float(input('G12:'))
+
 
 
 def calc_stiffnes_matrix(E1,E2,nu12,G12):
